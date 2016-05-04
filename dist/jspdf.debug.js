@@ -3748,12 +3748,12 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 	/**
 	 * Renders an HTML element to canvas object which added to the PDF
 	 *
-	 * This PlugIn requires html2canvas: https://github.com/niklasvh/html2canvas
+	 * This PlugIn requires htmlToCanvas: https://github.com/niklasvh/htmlToCanvas
 	 *            OR rasterizeHTML: https://github.com/cburgmer/rasterizeHTML.js
 	 *
 	 * @public
 	 * @function
-	 * @param element {Mixed} HTML Element, or anything supported by html2canvas.
+	 * @param element {Mixed} HTML Element, or anything supported by htmlToCanvas.
 	 * @param x {Number} starting X coordinate in jsPDF instance's declared units.
 	 * @param y {Number} starting Y coordinate in jsPDF instance's declared units.
 	 * @param options {Object} Additional options, check the code below.
@@ -3766,9 +3766,9 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 	jsPDFAPI.addHTML = function (element, x, y, options, callback) {
 		'use strict';
 
-		if(typeof html2canvas === 'undefined' && typeof rasterizeHTML === 'undefined')
+		if(typeof htmlToCanvas === 'undefined' && typeof rasterizeHTML === 'undefined')
 			throw new Error('You need either '
-				+'https://github.com/niklasvh/html2canvas'
+				+'https://github.com/niklasvh/htmlToCanvas'
 				+' or https://github.com/cburgmer/rasterizeHTML.js');
 
 		if(typeof x !== 'number') {
@@ -3830,8 +3830,8 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 			}
 		}.bind(this);
 
-		if(typeof html2canvas !== 'undefined' && !options.rstz) {
-			return html2canvas(element, options);
+		if(typeof htmlToCanvas !== 'undefined' && !options.rstz) {
+			return htmlToCanvas(element, options);
 		}
 
 		if(typeof rasterizeHTML !== 'undefined') {
@@ -11858,7 +11858,7 @@ var Deflater = (function(obj) {
 	};
 })(this);
 /*
-  html2canvas 0.5.0-alpha <http://html2canvas.hertzen.com>
+  htmlToCanvas 0.5.0-alpha <http://htmlToCanvas.hertzen.com>
   Copyright (c) 2014 Niklas von Hertzen
 
   Released under MIT License
@@ -11890,7 +11890,7 @@ var Deflater = (function(obj) {
 !function(){var a,b,c,d;!function(){var e={},f={};a=function(a,b,c){e[a]={deps:b,callback:c}},d=c=b=function(a){function c(b){if("."!==b.charAt(0))return b;for(var c=b.split("/"),d=a.split("/").slice(0,-1),e=0,f=c.length;f>e;e++){var g=c[e];if(".."===g)d.pop();else{if("."===g)continue;d.push(g)}}return d.join("/")}if(d._eak_seen=e,f[a])return f[a];if(f[a]={},!e[a])throw new Error("Could not find module "+a);for(var g,h=e[a],i=h.deps,j=h.callback,k=[],l=0,m=i.length;m>l;l++)"exports"===i[l]?k.push(g={}):k.push(b(c(i[l])));var n=j.apply(this,k);return f[a]=g||n}}(),a("promise/all",["./utils","exports"],function(a,b){"use strict";function c(a){var b=this;if(!d(a))throw new TypeError("You must pass an array to all.");return new b(function(b,c){function d(a){return function(b){f(a,b)}}function f(a,c){h[a]=c,0===--i&&b(h)}var g,h=[],i=a.length;0===i&&b([]);for(var j=0;j<a.length;j++)g=a[j],g&&e(g.then)?g.then(d(j),c):f(j,g)})}var d=a.isArray,e=a.isFunction;b.all=c}),a("promise/asap",["exports"],function(a){"use strict";function b(){return function(){process.nextTick(e)}}function c(){var a=0,b=new i(e),c=document.createTextNode("");return b.observe(c,{characterData:!0}),function(){c.data=a=++a%2}}function d(){return function(){j.setTimeout(e,1)}}function e(){for(var a=0;a<k.length;a++){var b=k[a],c=b[0],d=b[1];c(d)}k=[]}function f(a,b){var c=k.push([a,b]);1===c&&g()}var g,h="undefined"!=typeof window?window:{},i=h.MutationObserver||h.WebKitMutationObserver,j="undefined"!=typeof global?global:this,k=[];g="undefined"!=typeof process&&"[object process]"==={}.toString.call(process)?b():i?c():d(),a.asap=f}),a("promise/cast",["exports"],function(a){"use strict";function b(a){if(a&&"object"==typeof a&&a.constructor===this)return a;var b=this;return new b(function(b){b(a)})}a.cast=b}),a("promise/config",["exports"],function(a){"use strict";function b(a,b){return 2!==arguments.length?c[a]:(c[a]=b,void 0)}var c={instrument:!1};a.config=c,a.configure=b}),a("promise/polyfill",["./promise","./utils","exports"],function(a,b,c){"use strict";function d(){var a="Promise"in window&&"cast"in window.Promise&&"resolve"in window.Promise&&"reject"in window.Promise&&"all"in window.Promise&&"race"in window.Promise&&function(){var a;return new window.Promise(function(b){a=b}),f(a)}();a||(window.Promise=e)}var e=a.Promise,f=b.isFunction;c.polyfill=d}),a("promise/promise",["./config","./utils","./cast","./all","./race","./resolve","./reject","./asap","exports"],function(a,b,c,d,e,f,g,h,i){"use strict";function j(a){if(!w(a))throw new TypeError("You must pass a resolver function as the first argument to the promise constructor");if(!(this instanceof j))throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");this._subscribers=[],k(a,this)}function k(a,b){function c(a){p(b,a)}function d(a){r(b,a)}try{a(c,d)}catch(e){d(e)}}function l(a,b,c,d){var e,f,g,h,i=w(c);if(i)try{e=c(d),g=!0}catch(j){h=!0,f=j}else e=d,g=!0;o(b,e)||(i&&g?p(b,e):h?r(b,f):a===F?p(b,e):a===G&&r(b,e))}function m(a,b,c,d){var e=a._subscribers,f=e.length;e[f]=b,e[f+F]=c,e[f+G]=d}function n(a,b){for(var c,d,e=a._subscribers,f=a._detail,g=0;g<e.length;g+=3)c=e[g],d=e[g+b],l(b,c,d,f);a._subscribers=null}function o(a,b){var c,d=null;try{if(a===b)throw new TypeError("A promises callback cannot return that same promise.");if(v(b)&&(d=b.then,w(d)))return d.call(b,function(d){return c?!0:(c=!0,b!==d?p(a,d):q(a,d),void 0)},function(b){return c?!0:(c=!0,r(a,b),void 0)}),!0}catch(e){return c?!0:(r(a,e),!0)}return!1}function p(a,b){a===b?q(a,b):o(a,b)||q(a,b)}function q(a,b){a._state===D&&(a._state=E,a._detail=b,u.async(s,a))}function r(a,b){a._state===D&&(a._state=E,a._detail=b,u.async(t,a))}function s(a){n(a,a._state=F)}function t(a){n(a,a._state=G)}var u=a.config,v=(a.configure,b.objectOrFunction),w=b.isFunction,x=(b.now,c.cast),y=d.all,z=e.race,A=f.resolve,B=g.reject,C=h.asap;u.async=C;var D=void 0,E=0,F=1,G=2;j.prototype={constructor:j,_state:void 0,_detail:void 0,_subscribers:void 0,then:function(a,b){var c=this,d=new this.constructor(function(){});if(this._state){var e=arguments;u.async(function(){l(c._state,d,e[c._state-1],c._detail)})}else m(this,d,a,b);return d},"catch":function(a){return this.then(null,a)}},j.all=y,j.cast=x,j.race=z,j.resolve=A,j.reject=B,i.Promise=j}),a("promise/race",["./utils","exports"],function(a,b){"use strict";function c(a){var b=this;if(!d(a))throw new TypeError("You must pass an array to race.");return new b(function(b,c){for(var d,e=0;e<a.length;e++)d=a[e],d&&"function"==typeof d.then?d.then(b,c):b(d)})}var d=a.isArray;b.race=c}),a("promise/reject",["exports"],function(a){"use strict";function b(a){var b=this;return new b(function(b,c){c(a)})}a.reject=b}),a("promise/resolve",["exports"],function(a){"use strict";function b(a){var b=this;return new b(function(b){b(a)})}a.resolve=b}),a("promise/utils",["exports"],function(a){"use strict";function b(a){return c(a)||"object"==typeof a&&null!==a}function c(a){return"function"==typeof a}function d(a){return"[object Array]"===Object.prototype.toString.call(a)}var e=Date.now||function(){return(new Date).getTime()};a.objectOrFunction=b,a.isFunction=c,a.isArray=d,a.now=e}),b("promise/polyfill").polyfill()}();
 
 if (typeof(Object.create) !== "function" || typeof(document.createElement("canvas").getContext) !== "function") {
-    window.html2canvas = function() {
+    window.htmlToCanvas = function() {
         return Promise.reject("No canvas support");
     };
     return;
@@ -12425,15 +12425,15 @@ if (typeof(Object.create) !== "function" || typeof(document.createElement("canva
 
 }(this));
 
-var html2canvasNodeAttribute = "data-html2canvas-node";
-var html2canvasCanvasCloneAttribute = "data-html2canvas-canvas-clone";
-var html2canvasCanvasCloneIndex = 0;
+var htmlToCanvasNodeAttribute = "data-htmlToCanvas-node";
+var htmlToCanvasCanvasCloneAttribute = "data-htmlToCanvas-canvas-clone";
+var htmlToCanvasCanvasCloneIndex = 0;
 
-window.html2canvas = function(nodeList, options) {
+window.htmlToCanvas = function(nodeList, options) {
     options = options || {};
     if (options.logging) {
-        window.html2canvas.logging = true;
-        window.html2canvas.start = Date.now();
+        window.htmlToCanvas.logging = true;
+        window.htmlToCanvas.start = Date.now();
     }
 
     options.async = typeof(options.async) === "undefined" ? true : options.async;
@@ -12452,24 +12452,24 @@ window.html2canvas = function(nodeList, options) {
     }
 
     var node = ((nodeList === undefined) ? [document.documentElement] : ((nodeList.length) ? nodeList : [nodeList]))[0];
-    node.setAttribute(html2canvasNodeAttribute, "true");
+    node.setAttribute(htmlToCanvasNodeAttribute, "true");
     return renderDocument(node.ownerDocument, options, node.ownerDocument.defaultView.innerWidth, node.ownerDocument.defaultView.innerHeight).then(function(canvas) {
         if (typeof(options.onrendered) === "function") {
-            log("options.onrendered is deprecated, html2canvas returns a Promise containing the canvas");
+            log("options.onrendered is deprecated, htmlToCanvas returns a Promise containing the canvas");
             options.onrendered(canvas);
         }
         return canvas;
     });
 };
 
-window.html2canvas.punycode = this.punycode;
-window.html2canvas.proxy = {};
+window.htmlToCanvas.punycode = this.punycode;
+window.htmlToCanvas.proxy = {};
 
 function renderDocument(document, options, windowWidth, windowHeight) {
     return createWindowClone(document, document, windowWidth, windowHeight, options).then(function(container) {
         log("Document cloned");
-        var selector = "[" + html2canvasNodeAttribute + "='true']";
-        document.querySelector(selector).removeAttribute(html2canvasNodeAttribute);
+        var selector = "[" + htmlToCanvasNodeAttribute + "='true']";
+        document.querySelector(selector).removeAttribute(htmlToCanvasNodeAttribute);
         var clonedWindow = container.contentWindow;
         var node = clonedWindow.document.querySelector(selector);
         var oncloneHandler = (typeof(options.onclone) === "function") ? Promise.resolve(options.onclone(clonedWindow.document)) : Promise.resolve(true);
@@ -12551,7 +12551,7 @@ function createWindowClone(ownerDocument, containerDocument, width, height, opti
     var documentElement = ownerDocument.documentElement.cloneNode(true),
         container = containerDocument.createElement("iframe");
 
-    container.className = "html2canvas-container";
+    container.className = "htmlToCanvas-container";
     container.style.visibility = "hidden";
     container.style.position = "fixed";
     container.style.left = "-10000px";
@@ -12636,14 +12636,14 @@ function documentFromHTML(src) {
 
 function labelCanvasElements(ownerDocument) {
     [].slice.call(ownerDocument.querySelectorAll("canvas"), 0).forEach(function(canvas) {
-        canvas.setAttribute(html2canvasCanvasCloneAttribute, "canvas-" + html2canvasCanvasCloneIndex++);
+        canvas.setAttribute(htmlToCanvasCanvasCloneAttribute, "canvas-" + htmlToCanvasCanvasCloneIndex++);
     });
 }
 
 function cloneCanvasContents(ownerDocument, documentClone) {
-    [].slice.call(ownerDocument.querySelectorAll("[" + html2canvasCanvasCloneAttribute + "]"), 0).forEach(function(canvas) {
+    [].slice.call(ownerDocument.querySelectorAll("[" + htmlToCanvasCanvasCloneAttribute + "]"), 0).forEach(function(canvas) {
         try {
-            var clonedCanvas = documentClone.querySelector('[' + html2canvasCanvasCloneAttribute + '="' + canvas.getAttribute(html2canvasCanvasCloneAttribute) + '"]');
+            var clonedCanvas = documentClone.querySelector('[' + htmlToCanvasCanvasCloneAttribute + '="' + canvas.getAttribute(htmlToCanvasCanvasCloneAttribute) + '"]');
             if (clonedCanvas) {
                 clonedCanvas.width = canvas.width;
                 clonedCanvas.height = canvas.height;
@@ -12652,7 +12652,7 @@ function cloneCanvasContents(ownerDocument, documentClone) {
         } catch(e) {
             log("Unable to copy canvas content from", canvas, e);
         }
-        canvas.removeAttribute(html2canvasCanvasCloneAttribute);
+        canvas.removeAttribute(htmlToCanvasCanvasCloneAttribute);
     });
 }
 
@@ -12770,7 +12770,7 @@ function FrameContainer(container, sameOrigin, options) {
             resolve(container);
         }
     })).then(function(container) {
-        return html2canvas(container.contentWindow.document.documentElement, {type: 'view', width: container.width, height: container.height, proxy: options.proxy, javascriptEnabled: options.javascriptEnabled, removeContainer: options.removeContainer, allowTaint: options.allowTaint, imageTimeout: options.imageTimeout / 2});
+        return htmlToCanvas(container.contentWindow.document.documentElement, {type: 'view', width: container.width, height: container.height, proxy: options.proxy, javascriptEnabled: options.javascriptEnabled, removeContainer: options.removeContainer, allowTaint: options.allowTaint, imageTimeout: options.imageTimeout / 2});
     }).then(function(canvas) {
         return self.image = canvas;
     });
@@ -13031,8 +13031,8 @@ LinearGradientContainer.prototype = Object.create(GradientContainer.prototype);
 LinearGradientContainer.prototype.stepRegExp = /((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\))\s*(\d{1,3})?(%|px)?/;
 
 function log() {
-    if (window.html2canvas.logging && window.console && window.console.log) {
-        Function.prototype.bind.call(window.console.log, (window.console)).apply(window.console, [(Date.now() - window.html2canvas.start) + "ms", "html2canvas:"].concat([].slice.call(arguments, 0)));
+    if (window.htmlToCanvas.logging && window.console && window.console.log) {
+        Function.prototype.bind.call(window.console.log, (window.console)).apply(window.console, [(Date.now() - window.htmlToCanvas.start) + "ms", "htmlToCanvas:"].concat([].slice.call(arguments, 0)));
     }
 }
 
@@ -13080,7 +13080,7 @@ NodeContainer.prototype.isElementVisible = function() {
     return this.node.nodeType === Node.TEXT_NODE ? this.parent.visible : (
         this.css('display') !== "none" &&
         this.css('visibility') !== "hidden" &&
-        !this.node.hasAttribute("data-html2canvas-ignore") &&
+        !this.node.hasAttribute("data-htmlToCanvas-ignore") &&
         (this.node.nodeName !== "INPUT" || this.node.getAttribute("type") !== "hidden")
     );
 };
@@ -13582,7 +13582,7 @@ NodeParser.prototype.getPseudoElement = function(container, type) {
 
     var content = stripQuotes(style.content);
     var isImage = content.substr(0, 3) === 'url';
-    var pseudoNode = document.createElement(isImage ? 'img' : 'html2canvaspseudoelement');
+    var pseudoNode = document.createElement(isImage ? 'img' : 'htmlToCanvaspseudoelement');
     var pseudoContainer = new PseudoElementContainer(pseudoNode, container, type);
 
     for (var i = style.length-1; i >= 0; i--) {
@@ -13663,7 +13663,7 @@ NodeParser.prototype.parseTextBounds = function(container) {
 };
 
 NodeParser.prototype.getWrapperBounds = function(node, transform) {
-    var wrapper = node.ownerDocument.createElement('html2canvaswrapper');
+    var wrapper = node.ownerDocument.createElement('htmlToCanvaswrapper');
     var parent = node.parentNode,
         backupText = node.cloneNode(true);
 
@@ -13839,7 +13839,7 @@ NodeParser.prototype.paintRadio = function(container) {
 NodeParser.prototype.paintFormValue = function(container) {
     if (container.getValue().length > 0) {
         var document = container.node.ownerDocument;
-        var wrapper = document.createElement('html2canvaswrapper');
+        var wrapper = document.createElement('htmlToCanvaswrapper');
         var properties = ['lineHeight', 'textAlign', 'fontFamily', 'fontWeight', 'fontSize', 'color',
             'paddingLeft', 'paddingTop', 'paddingRight', 'paddingBottom',
             'width', 'height', 'borderLeftStyle', 'borderTopStyle', 'borderLeftWidth', 'borderTopWidth',
@@ -13850,7 +13850,7 @@ NodeParser.prototype.paintFormValue = function(container) {
                 wrapper.style[property] = container.css(property);
             } catch(e) {
                 // Older IE has issues with "border"
-                log("html2canvas: Parse: Exception caught in renderFormValue: " + e.message);
+                log("htmlToCanvas: Parse: Exception caught in renderFormValue: " + e.message);
             }
         });
         var bounds = container.parseBounds();
@@ -13866,9 +13866,9 @@ NodeParser.prototype.paintFormValue = function(container) {
 
 NodeParser.prototype.paintText = function(container) {
     container.applyTextTransform();
-    var characters = window.html2canvas.punycode.ucs2.decode(container.node.data);
+    var characters = window.htmlToCanvas.punycode.ucs2.decode(container.node.data);
     var textList = (!this.options.letterRendering || noLetterSpacing(container)) && !hasUnicode(container.node.data) ? getWords(characters) : characters.map(function(character) {
-        return window.html2canvas.punycode.ucs2.encode([character]);
+        return window.htmlToCanvas.punycode.ucs2.encode([character]);
     });
 
     var weight = container.parent.fontWeight();
@@ -14405,7 +14405,7 @@ function getWords(characters) {
         if (isWordBoundary(characters[i]) === onWordBoundary) {
             word = characters.splice(0, i);
             if (word.length) {
-                words.push(window.html2canvas.punycode.ucs2.encode(word));
+                words.push(window.htmlToCanvas.punycode.ucs2.encode(word));
             }
             onWordBoundary =! onWordBoundary;
             i = 0;
@@ -14416,7 +14416,7 @@ function getWords(characters) {
         if (i >= characters.length) {
             word = characters.splice(0, i);
             if (word.length) {
-                words.push(window.html2canvas.punycode.ucs2.encode(word));
+                words.push(window.htmlToCanvas.punycode.ucs2.encode(word));
             }
         }
     }
@@ -14462,10 +14462,10 @@ function jsonp(document, url, callback) {
     return new Promise(function(resolve, reject) {
         var s = document.createElement("script");
         var cleanup = function() {
-            delete window.html2canvas.proxy[callback];
+            delete window.htmlToCanvas.proxy[callback];
             document.body.removeChild(s);
         };
-        window.html2canvas.proxy[callback] = function(response) {
+        window.htmlToCanvas.proxy[callback] = function(response) {
             cleanup();
             resolve(response);
         };
@@ -14479,11 +14479,11 @@ function jsonp(document, url, callback) {
 }
 
 function createCallback(useCORS) {
-    return !useCORS ? "html2canvas_" + Date.now() + "_" + (++proxyCount) + "_" + Math.round(Math.random() * 100000) : "";
+    return !useCORS ? "htmlToCanvas_" + Date.now() + "_" + (++proxyCount) + "_" + Math.round(Math.random() * 100000) : "";
 }
 
 function createProxyUrl(proxyUrl, src, callback) {
-    return proxyUrl + "?url=" + encodeURIComponent(src) + (callback.length ? "&callback=html2canvas.proxy." + callback : "");
+    return proxyUrl + "?url=" + encodeURIComponent(src) + (callback.length ? "&callback=htmlToCanvas.proxy." + callback : "");
 }
 
 function ProxyImageContainer(src, proxy) {
@@ -14537,8 +14537,8 @@ PseudoElementContainer.prototype.getHideClass = function() {
     return this["PSEUDO_HIDE_ELEMENT_CLASS_" + (this.before ? "BEFORE" : "AFTER")];
 };
 
-PseudoElementContainer.prototype.PSEUDO_HIDE_ELEMENT_CLASS_BEFORE = "___html2canvas___pseudoelement_before";
-PseudoElementContainer.prototype.PSEUDO_HIDE_ELEMENT_CLASS_AFTER = "___html2canvas___pseudoelement_after";
+PseudoElementContainer.prototype.PSEUDO_HIDE_ELEMENT_CLASS_BEFORE = "___htmlToCanvas___pseudoelement_before";
+PseudoElementContainer.prototype.PSEUDO_HIDE_ELEMENT_CLASS_AFTER = "___htmlToCanvas___pseudoelement_after";
 
 function Renderer(width, height, images, options, document) {
     this.width = width;
@@ -14723,13 +14723,13 @@ function SVGContainer(src) {
         return (self.isInline(src) ? Promise.resolve(self.inlineFormatting(src)) : XHR(src));
     }).then(function(svg) {
         return new Promise(function(resolve) {
-            html2canvas.fabric.loadSVGFromString(svg, self.createCanvas.call(self, resolve));
+            htmlToCanvas.fabric.loadSVGFromString(svg, self.createCanvas.call(self, resolve));
         });
     });
 }
 
 SVGContainer.prototype.hasFabric = function() {
-    return !html2canvas.fabric ? Promise.reject(new Error("html2canvas.svg.js is not loaded, cannot render svg")) : Promise.resolve();
+    return !htmlToCanvas.fabric ? Promise.reject(new Error("htmlToCanvas.svg.js is not loaded, cannot render svg")) : Promise.resolve();
 };
 
 SVGContainer.prototype.inlineFormatting = function(src) {
@@ -14747,12 +14747,12 @@ SVGContainer.prototype.isInline = function(src) {
 SVGContainer.prototype.createCanvas = function(resolve) {
     var self = this;
     return function (objects, options) {
-        var canvas = new html2canvas.fabric.StaticCanvas('c');
+        var canvas = new htmlToCanvas.fabric.StaticCanvas('c');
         self.image = canvas.lowerCanvasEl;
         canvas
             .setWidth(options.width)
             .setHeight(options.height)
-            .add(html2canvas.fabric.util.groupSVGElements(objects, options))
+            .add(htmlToCanvas.fabric.util.groupSVGElements(objects, options))
             .renderAll();
         resolve(canvas.lowerCanvasEl);
     };
@@ -14812,7 +14812,7 @@ function SVGNodeContainer(node, native) {
         }
     }) : this.hasFabric().then(function() {
         return new Promise(function(resolve) {
-            html2canvas.fabric.parseSVGDocument(node, self.createCanvas.call(self, resolve));
+            htmlToCanvas.fabric.parseSVGDocument(node, self.createCanvas.call(self, resolve));
         });
     });
 }
@@ -15056,15 +15056,15 @@ function hasEntries(array) {
     return array.length > 0;
 }
 
-}).call({}, window, document);var html2canvasNodeAttribute = "data-html2canvas-node";
-var html2canvasCanvasCloneAttribute = "data-html2canvas-canvas-clone";
-var html2canvasCanvasCloneIndex = 0;
+}).call({}, window, document);var htmlToCanvasNodeAttribute = "data-htmlToCanvas-node";
+var htmlToCanvasCanvasCloneAttribute = "data-htmlToCanvas-canvas-clone";
+var htmlToCanvasCanvasCloneIndex = 0;
 
-window.html2canvas = function(nodeList, options) {
+window.htmlToCanvas = function(nodeList, options) {
     options = options || {};
     if (options.logging) {
-        window.html2canvas.logging = true;
-        window.html2canvas.start = Date.now();
+        window.htmlToCanvas.logging = true;
+        window.htmlToCanvas.start = Date.now();
     }
 
     options.async = typeof(options.async) === "undefined" ? true : options.async;
@@ -15083,24 +15083,24 @@ window.html2canvas = function(nodeList, options) {
     }
 
     var node = ((nodeList === undefined) ? [document.documentElement] : ((nodeList.length) ? nodeList : [nodeList]))[0];
-    node.setAttribute(html2canvasNodeAttribute, "true");
+    node.setAttribute(htmlToCanvasNodeAttribute, "true");
     return renderDocument(node.ownerDocument, options, node.ownerDocument.defaultView.innerWidth, node.ownerDocument.defaultView.innerHeight).then(function(canvas) {
         if (typeof(options.onrendered) === "function") {
-            log("options.onrendered is deprecated, html2canvas returns a Promise containing the canvas");
+            log("options.onrendered is deprecated, htmlToCanvas returns a Promise containing the canvas");
             options.onrendered(canvas);
         }
         return canvas;
     });
 };
 
-window.html2canvas.punycode = this.punycode;
-window.html2canvas.proxy = {};
+window.htmlToCanvas.punycode = this.punycode;
+window.htmlToCanvas.proxy = {};
 
 function renderDocument(document, options, windowWidth, windowHeight) {
     return createWindowClone(document, document, windowWidth, windowHeight, options).then(function(container) {
         log("Document cloned");
-        var selector = "[" + html2canvasNodeAttribute + "='true']";
-        document.querySelector(selector).removeAttribute(html2canvasNodeAttribute);
+        var selector = "[" + htmlToCanvasNodeAttribute + "='true']";
+        document.querySelector(selector).removeAttribute(htmlToCanvasNodeAttribute);
         var clonedWindow = container.contentWindow;
         var node = clonedWindow.document.querySelector(selector);
         var oncloneHandler = (typeof(options.onclone) === "function") ? Promise.resolve(options.onclone(clonedWindow.document)) : Promise.resolve(true);
@@ -15182,7 +15182,7 @@ function createWindowClone(ownerDocument, containerDocument, width, height, opti
     var documentElement = ownerDocument.documentElement.cloneNode(true),
         container = containerDocument.createElement("iframe");
 
-    container.className = "html2canvas-container";
+    container.className = "htmlToCanvas-container";
     container.style.visibility = "hidden";
     container.style.position = "fixed";
     container.style.left = "-10000px";
@@ -15267,14 +15267,14 @@ function documentFromHTML(src) {
 
 function labelCanvasElements(ownerDocument) {
     [].slice.call(ownerDocument.querySelectorAll("canvas"), 0).forEach(function(canvas) {
-        canvas.setAttribute(html2canvasCanvasCloneAttribute, "canvas-" + html2canvasCanvasCloneIndex++);
+        canvas.setAttribute(htmlToCanvasCanvasCloneAttribute, "canvas-" + htmlToCanvasCanvasCloneIndex++);
     });
 }
 
 function cloneCanvasContents(ownerDocument, documentClone) {
-    [].slice.call(ownerDocument.querySelectorAll("[" + html2canvasCanvasCloneAttribute + "]"), 0).forEach(function(canvas) {
+    [].slice.call(ownerDocument.querySelectorAll("[" + htmlToCanvasCanvasCloneAttribute + "]"), 0).forEach(function(canvas) {
         try {
-            var clonedCanvas = documentClone.querySelector('[' + html2canvasCanvasCloneAttribute + '="' + canvas.getAttribute(html2canvasCanvasCloneAttribute) + '"]');
+            var clonedCanvas = documentClone.querySelector('[' + htmlToCanvasCanvasCloneAttribute + '="' + canvas.getAttribute(htmlToCanvasCanvasCloneAttribute) + '"]');
             if (clonedCanvas) {
                 clonedCanvas.width = canvas.width;
                 clonedCanvas.height = canvas.height;
@@ -15283,7 +15283,7 @@ function cloneCanvasContents(ownerDocument, documentClone) {
         } catch(e) {
             log("Unable to copy canvas content from", canvas, e);
         }
-        canvas.removeAttribute(html2canvasCanvasCloneAttribute);
+        canvas.removeAttribute(htmlToCanvasCanvasCloneAttribute);
     });
 }
 
@@ -15326,7 +15326,7 @@ function DummyImageContainer(src) {
     }
 }
 if (typeof(Object.create) !== "function" || typeof(document.createElement("canvas").getContext) !== "function") {
-    window.html2canvas = function() {
+    window.htmlToCanvas = function() {
         return Promise.reject("No canvas support");
     };
     //return;
@@ -15403,7 +15403,7 @@ function FrameContainer(container, sameOrigin, options) {
             resolve(container);
         }
     })).then(function(container) {
-        return html2canvas(container.contentWindow.document.documentElement, {type: 'view', width: container.width, height: container.height, proxy: options.proxy, javascriptEnabled: options.javascriptEnabled, removeContainer: options.removeContainer, allowTaint: options.allowTaint, imageTimeout: options.imageTimeout / 2});
+        return htmlToCanvas(container.contentWindow.document.documentElement, {type: 'view', width: container.width, height: container.height, proxy: options.proxy, javascriptEnabled: options.javascriptEnabled, removeContainer: options.removeContainer, allowTaint: options.allowTaint, imageTimeout: options.imageTimeout / 2});
     }).then(function(canvas) {
         return self.image = canvas;
     });
@@ -15659,8 +15659,8 @@ LinearGradientContainer.prototype = Object.create(GradientContainer.prototype);
 
 LinearGradientContainer.prototype.stepRegExp = /((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\))\s*(\d{1,3})?(%|px)?/;
 function log() {
-    if (window.html2canvas.logging && window.console && window.console.log) {
-        Function.prototype.bind.call(window.console.log, (window.console)).apply(window.console, [(Date.now() - window.html2canvas.start) + "ms", "html2canvas:"].concat([].slice.call(arguments, 0)));
+    if (window.htmlToCanvas.logging && window.console && window.console.log) {
+        Function.prototype.bind.call(window.console.log, (window.console)).apply(window.console, [(Date.now() - window.htmlToCanvas.start) + "ms", "htmlToCanvas:"].concat([].slice.call(arguments, 0)));
     }
 }
 function NodeContainer(node, parent) {
@@ -15707,7 +15707,7 @@ NodeContainer.prototype.isElementVisible = function() {
     return this.node.nodeType === Node.TEXT_NODE ? this.parent.visible : (
         this.css('display') !== "none" &&
         this.css('visibility') !== "hidden" &&
-        !this.node.hasAttribute("data-html2canvas-ignore") &&
+        !this.node.hasAttribute("data-htmlToCanvas-ignore") &&
         (this.node.nodeName !== "INPUT" || this.node.getAttribute("type") !== "hidden")
     );
 };
@@ -16208,7 +16208,7 @@ NodeParser.prototype.getPseudoElement = function(container, type) {
 
     var content = stripQuotes(style.content);
     var isImage = content.substr(0, 3) === 'url';
-    var pseudoNode = document.createElement(isImage ? 'img' : 'html2canvaspseudoelement');
+    var pseudoNode = document.createElement(isImage ? 'img' : 'htmlToCanvaspseudoelement');
     var pseudoContainer = new PseudoElementContainer(pseudoNode, container, type);
 
     for (var i = style.length-1; i >= 0; i--) {
@@ -16289,7 +16289,7 @@ NodeParser.prototype.parseTextBounds = function(container) {
 };
 
 NodeParser.prototype.getWrapperBounds = function(node, transform) {
-    var wrapper = node.ownerDocument.createElement('html2canvaswrapper');
+    var wrapper = node.ownerDocument.createElement('htmlToCanvaswrapper');
     var parent = node.parentNode,
         backupText = node.cloneNode(true);
 
@@ -16448,7 +16448,7 @@ NodeParser.prototype.paintRadio = function(container) {
 NodeParser.prototype.paintFormValue = function(container) {
     if (container.getValue().length > 0) {
         var document = container.node.ownerDocument;
-        var wrapper = document.createElement('html2canvaswrapper');
+        var wrapper = document.createElement('htmlToCanvaswrapper');
         var properties = ['lineHeight', 'textAlign', 'fontFamily', 'fontWeight', 'fontSize', 'color',
             'paddingLeft', 'paddingTop', 'paddingRight', 'paddingBottom',
             'width', 'height', 'borderLeftStyle', 'borderTopStyle', 'borderLeftWidth', 'borderTopWidth',
@@ -16459,7 +16459,7 @@ NodeParser.prototype.paintFormValue = function(container) {
                 wrapper.style[property] = container.css(property);
             } catch(e) {
                 // Older IE has issues with "border"
-                log("html2canvas: Parse: Exception caught in renderFormValue: " + e.message);
+                log("htmlToCanvas: Parse: Exception caught in renderFormValue: " + e.message);
             }
         });
         var bounds = container.parseBounds();
@@ -16475,9 +16475,9 @@ NodeParser.prototype.paintFormValue = function(container) {
 
 NodeParser.prototype.paintText = function(container) {
     container.applyTextTransform();
-    var characters = window.html2canvas.punycode.ucs2.decode(container.node.data);
+    var characters = window.htmlToCanvas.punycode.ucs2.decode(container.node.data);
     var textList = (!this.options.letterRendering || noLetterSpacing(container)) && !hasUnicode(container.node.data) ? getWords(characters) : characters.map(function(character) {
-        return window.html2canvas.punycode.ucs2.encode([character]);
+        return window.htmlToCanvas.punycode.ucs2.encode([character]);
     });
 
     var weight = container.parent.fontWeight();
@@ -16868,7 +16868,7 @@ function getWords(characters) {
         if (isWordBoundary(characters[i]) === onWordBoundary) {
             word = characters.splice(0, i);
             if (word.length) {
-                words.push(window.html2canvas.punycode.ucs2.encode(word));
+                words.push(window.htmlToCanvas.punycode.ucs2.encode(word));
             }
             onWordBoundary =! onWordBoundary;
             i = 0;
@@ -16879,7 +16879,7 @@ function getWords(characters) {
         if (i >= characters.length) {
             word = characters.splice(0, i);
             if (word.length) {
-                words.push(window.html2canvas.punycode.ucs2.encode(word));
+                words.push(window.htmlToCanvas.punycode.ucs2.encode(word));
             }
         }
     }
@@ -16946,10 +16946,10 @@ function jsonp(document, url, callback) {
     return new Promise(function(resolve, reject) {
         var s = document.createElement("script");
         var cleanup = function() {
-            delete window.html2canvas.proxy[callback];
+            delete window.htmlToCanvas.proxy[callback];
             document.body.removeChild(s);
         };
-        window.html2canvas.proxy[callback] = function(response) {
+        window.htmlToCanvas.proxy[callback] = function(response) {
             cleanup();
             resolve(response);
         };
@@ -16963,11 +16963,11 @@ function jsonp(document, url, callback) {
 }
 
 function createCallback(useCORS) {
-    return !useCORS ? "html2canvas_" + Date.now() + "_" + (++proxyCount) + "_" + Math.round(Math.random() * 100000) : "";
+    return !useCORS ? "htmlToCanvas_" + Date.now() + "_" + (++proxyCount) + "_" + Math.round(Math.random() * 100000) : "";
 }
 
 function createProxyUrl(proxyUrl, src, callback) {
-    return proxyUrl + "?url=" + encodeURIComponent(src) + (callback.length ? "&callback=html2canvas.proxy." + callback : "");
+    return proxyUrl + "?url=" + encodeURIComponent(src) + (callback.length ? "&callback=htmlToCanvas.proxy." + callback : "");
 }
 function ProxyImageContainer(src, proxy) {
     var script = document.createElement("script");
@@ -17019,8 +17019,8 @@ PseudoElementContainer.prototype.getHideClass = function() {
     return this["PSEUDO_HIDE_ELEMENT_CLASS_" + (this.before ? "BEFORE" : "AFTER")];
 };
 
-PseudoElementContainer.prototype.PSEUDO_HIDE_ELEMENT_CLASS_BEFORE = "___html2canvas___pseudoelement_before";
-PseudoElementContainer.prototype.PSEUDO_HIDE_ELEMENT_CLASS_AFTER = "___html2canvas___pseudoelement_after";
+PseudoElementContainer.prototype.PSEUDO_HIDE_ELEMENT_CLASS_BEFORE = "___htmlToCanvas___pseudoelement_before";
+PseudoElementContainer.prototype.PSEUDO_HIDE_ELEMENT_CLASS_AFTER = "___htmlToCanvas___pseudoelement_after";
 function Renderer(width, height, images, options, document) {
     this.width = width;
     this.height = height;
@@ -17201,13 +17201,13 @@ function SVGContainer(src) {
         return (self.isInline(src) ? Promise.resolve(self.inlineFormatting(src)) : XHR(src));
     }).then(function(svg) {
         return new Promise(function(resolve) {
-            html2canvas.fabric.loadSVGFromString(svg, self.createCanvas.call(self, resolve));
+            htmlToCanvas.fabric.loadSVGFromString(svg, self.createCanvas.call(self, resolve));
         });
     });
 }
 
 SVGContainer.prototype.hasFabric = function() {
-    return !html2canvas.fabric ? Promise.reject(new Error("html2canvas.svg.js is not loaded, cannot render svg")) : Promise.resolve();
+    return !htmlToCanvas.fabric ? Promise.reject(new Error("htmlToCanvas.svg.js is not loaded, cannot render svg")) : Promise.resolve();
 };
 
 SVGContainer.prototype.inlineFormatting = function(src) {
@@ -17225,12 +17225,12 @@ SVGContainer.prototype.isInline = function(src) {
 SVGContainer.prototype.createCanvas = function(resolve) {
     var self = this;
     return function (objects, options) {
-        var canvas = new html2canvas.fabric.StaticCanvas('c');
+        var canvas = new htmlToCanvas.fabric.StaticCanvas('c');
         self.image = canvas.lowerCanvasEl;
         canvas
             .setWidth(options.width)
             .setHeight(options.height)
-            .add(html2canvas.fabric.util.groupSVGElements(objects, options))
+            .add(htmlToCanvas.fabric.util.groupSVGElements(objects, options))
             .renderAll();
         resolve(canvas.lowerCanvasEl);
     };
@@ -17289,7 +17289,7 @@ function SVGNodeContainer(node, native) {
         }
     }) : this.hasFabric().then(function() {
         return new Promise(function(resolve) {
-            html2canvas.fabric.parseSVGDocument(node, self.createCanvas.call(self, resolve));
+            htmlToCanvas.fabric.parseSVGDocument(node, self.createCanvas.call(self, resolve));
         });
     });
 }
@@ -17432,7 +17432,7 @@ function html2pdf (html,pdf,callback) {
 		doc.write(html);
 		doc.close();
 
-		var promise = html2canvas(doc.body, {
+		var promise = htmlToCanvas(doc.body, {
 			canvas : canvas,
 			onrendered : function(canvas) {
 				if (callback) {
@@ -17446,7 +17446,7 @@ function html2pdf (html,pdf,callback) {
 
 	} else {
 		var body = html;
-		var promise = html2canvas(body, {
+		var promise = htmlToCanvas(body, {
 			canvas : canvas,
 			onrendered : function(canvas) {
 				if (callback) {
@@ -18670,7 +18670,7 @@ require.config({
             ]
         },
 
-        'libs/html2canvas/dist/html2canvas':{
+        'libs/htmlToCanvas/dist/htmlToCanvas':{
             deps:[
 	            'jspdf'
             ]
@@ -18699,7 +18699,7 @@ require.config({
             'plugins/canvas',
             'plugins/annotations',
 
-            'libs/html2canvas/dist/html2canvas'
+            'libs/htmlToCanvas/dist/htmlToCanvas'
             ]
         },
 
